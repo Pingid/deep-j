@@ -1,0 +1,38 @@
+{
+  "name": "schematizr",
+  "version": "4.3.0",
+  "description": "A lightweight library built for modifying deeply nested JSON.",
+  "main": "lib/schema.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "mocha --require babel-core/register tests/**/*.test.js",
+    "testing": "mocha --require babel-core/register tests/**/*.test.js -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pingid/schematizr.git"
+  },
+  "author": "Dan Beaven <dm.beaven@gmail.com> (http://danbeaven.co.uk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pingid/schematizr/issues"
+  },
+  "homepage": "https://github.com/Pingid/schematizr#readme",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
+  },
+  "dependencies": {
+    "ramda": "0.20.1"
+  },
+  "devDependencies": {
+    "babelify": "7.3.0",
+    "browserify": "13.1.0",
+    "chai": "3.4.1",
+    "mocha": "2.3.4",
+    "vinyl-buffer": "1.0.0",
+    "vinyl-source-stream": "1.1.0"
+  }
+}
