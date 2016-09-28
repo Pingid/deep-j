@@ -9,3 +9,5 @@ Function | Paramters | Description
 **deepReduce** | (Function, JSON)
 **deepEquals** | (JSON, JSON)
 **deepConcat** | (JSON, JSON, JSON)
+**compose**    | (Functions...)
+**curry**      | (Function)
