@@ -3,19 +3,25 @@ import curry from './curry';
 import deepMap from './deepMap';
 import deepFilter from './deepFilter';
 import deepReduce from './deepReduce';
+import deepEquals from './deepEquals';
+import deepConcat from './deepConcat';
 
 export compose from './compose';
 export curry from './curry';
 export deepMap from './deepMap';
 export deepFilter from './deepFilter';
 export deepReduce from './deepReduce';
+export deepEquals from './deepEquals';
+export deepConcat from './deepConcat';
 
 export default {
   compose,
   curry,
   deepMap,
   deepFilter,
-  deepReduce
+  deepReduce,
+  deepEquals,
+  deepConcat
 }
 
 // export default D;
