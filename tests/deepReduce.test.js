@@ -1,5 +1,5 @@
 import { expect, should } from 'chai';
-import { deepReduce } from '../lib/deepj'
+import deepReduce from '../src/deepReduce.js'
 
 const testData = [
   { one: '1', two: '2', three: [{ four: '4', five: [{ six: '6' }] }] },
@@ -7,43 +7,16 @@ const testData = [
 ];
 
 describe('deepReduce', () => {
-
-  // it('deepReduce merge all objects in deeply nested array', () => {
-  //   const actual = deepReduce(
-  //     (a, b) => R.type(b) === 'Object' ? Object.assign({}, a, b) : a,
-  //     {},
-  //     testData
-  //   )
-  //   const expected = {
-  //     one: 1,
-  //     two: 2,
-  //     three: [ { four: 4, five: [ { six: 6 } ] } ],
-  //     four: 4,
-  //     five: [ { six: 6 } ],
-  //     six: 6
-  //   }
-  //   expect(actual).deep.equal(expected);
-  // });
-  //
-  // it('deepReduce merge all objects in deeply nested object', () => {
-  //   const actual = deepReduce(
-  //     (a, b) => R.type(b) === 'Object' ? Object.assign({}, a, b) : a,
-  //     {},
-  //     testData[0]
-  //   );
-  //   const expected = {
-  //     one: '1',
-  //     two: '2',
-  //     three: [ { four: '4', five: [ { six: '6' } ] } ],
-  //     four: '4',
-  //     five: [ { six: '6' } ],
-  //     six: '6'
-  //   }
-  //   expect(actual).deep.equal(expected);
-  // });
-  //
-  // it('Should throw Error if inproper arguments are give', () => {
-  //   const throwsMadArgumenterror = () => deepReduce([], '', {})
-  //   expect(throwsMadArgumenterror).to.throw('deepReduce expected (Function) instead received (Array)')
-  // })
+  it('deepReduce should reduce every value', () => {
+    const actual = deepReduce((a, b) => a + b, '', testData)
+    const expected = '12461246'
+    expect(actual).equal(expected);
+  })
+  it('should merge all key value pairs', () => {
+    const actual = deepReduce((a, b, c) => {
+      return typeof b === 'object' ? a.concat(b) : a.concat([{ [c]: b }])
+    }, [], testData)
+    const expected = [{ one: '1'}, { two: '2'}, { four: '4'}, { six: '6'}, { one: 1}, { two: 2}, { four: 4}, { six: 6}];
+    expect(actual).deep.equal(expected)
+  })
 });

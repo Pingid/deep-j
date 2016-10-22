@@ -1,5 +1,5 @@
 import { expect, should } from 'chai';
-import { deepMap } from '../lib/deepj'
+import deepMap from '../src/deepMap'
 
 const testData = [
   { one: null, two: '2', three: [{ four: '4', five: [{ six: '6' }] }] },
@@ -9,18 +9,22 @@ const testData = [
 describe('deepMap', () => {
   it('deep map iterates every value in nest', () => {
     let actual = [];
-    deepMap((x) => { actual.push(x); return x; }, testData[0]);
+    const mapped = deepMap((value, key) => {
+      actual.push(value);
+      return value
+    }, testData[0]);
+
     const expected = [
-      { one: null, two:'2', three:[ { four:'4', five:[ { six:'6' } ] } ] },
+      { one: null, two: "2", three: [ { four: "4", five: [ { six: "6" } ] } ] },
       null,
-      '2',
-      [ { four:'4', five:[ { six:'6' } ] } ],
-      { four:'4', five:[ { six:'6' } ] },
-      '4',
-      { six:'6' },
-      '6',
-      [ { six:'6' } ]
-    ]
+      "2",
+      [ { four: "4", five: [ { six: "6" } ] } ],
+      { four: "4", five: [ { six: "6" } ] },
+      "4",
+      [ { six: "6" } ],
+      { six: "6" },
+      "6",
+    ];
     expect(actual).deep.equal(expected);
   });
   describe('deepMapping over', () => {

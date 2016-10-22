@@ -1,5 +1,6 @@
 import curry from '../curry';
 import objectType from './objectType';
+import reduce from './reduce'
 
 const objectMap = curry((f, o) => {
   let newObj = {};
