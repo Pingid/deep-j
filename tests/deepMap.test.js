@@ -13,9 +13,7 @@ describe('deepMap', () => {
       actual.push(value);
       return value
     }, testData[0]);
-
     const expected = [
-      { one: null, two: "2", three: [ { four: "4", five: [ { six: "6" } ] } ] },
       null,
       "2",
       [ { four: "4", five: [ { six: "6" } ] } ],

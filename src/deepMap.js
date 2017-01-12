@@ -11,9 +11,9 @@ import map from './internal/map';
 // map :: (a -> )
 const deepMap = curry((func, json) => {
   return map((value, key) => {
-    if (typeof value === 'object') return deepMap(func, value);
+    if (typeof value === 'object') return deepMap(func, func(value, key));
     return func(value, key)
-  }, func(json, 0))
+  }, json)
 })
 
 export default deepMap;
