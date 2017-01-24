@@ -2,6 +2,7 @@ import curry from './curry';
 import reduce from './internal/reduce';
 import isObjectLike from './internal/isObjectLike';
 import deepEquals from './deepEquals';
+import deepMap from './deepMap';
 
 /*
   Passes every value of JSON literal to the passed in filter function
@@ -9,11 +10,12 @@ import deepEquals from './deepEquals';
 */
 // deepReduce :: (j -> Bool) -> j -> j
 const deepReduce = curry((func, init, value) => {
-  return reduce((a, b, c) => {
-    const result = func(a, b, c);
-  	if (isObjectLike(b) && deepEquals(result, a)) return func(a, deepReduce(func, a, b), c)
-  	return result
-  }, init, value)
+	let result = init;
+	const iteration = deepMap((value, key) => {
+		result = func(result, value, key);
+		return value;
+	}, value)
+  return result;
 });
 
 export default deepReduce;

@@ -22,11 +22,21 @@ describe('deepReduce', () => {
       [ { six: "6" } ],
       { six: "6" },
       "6",
-			'initialValue',
-			'initialValue',
-			'initialValue',
-			'initialValue',
     ];
     expect(actual).deep.equal(expected);
   });
+	it('should concat all values', () => {
+		const actual = deepReduce((a, b) => a.concat([b]), [], testData[0])
+		const expected = [
+      null,
+      "2",
+      [ { four: "4", five: [ { six: "6" } ] } ],
+      { four: "4", five: [ { six: "6" } ] },
+      "4",
+      [ { six: "6" } ],
+      { six: "6" },
+      "6",
+    ];
+		expect(actual).deep.equal(expected);
+	})
 })

@@ -1,13 +1,17 @@
 import curry from './curry';
 import find from './internal/find';
+import isObjectLike from './internal/isObjectLike';
+import deepMap from './deepMap';
 
 // deepFind :: (a -> b -> c -> c)
 const deepFind = curry((func, json) => {
-  return select((value, key) => {
-    const result = func(value, key);
-    if (isObjectLike(value)) return deepFind(func, result);
-    return result
-  }, json)
+	let result = null;
+	const structure = deepMap((value, key) => {
+		if (result) return null
+		else if (func(value, key)) { result = value; }
+		return value;
+	}, json)
+	return result;
 })
 
 export default deepFind;
