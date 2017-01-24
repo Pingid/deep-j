@@ -10,8 +10,8 @@ const arraySelect = curry((f, a) => {
   return null
 })
 
-const select = curry((func, object) => {
+const find = curry((func, object) => {
   return objectType(objectSelect(func), arraySelect(func), object);
 })
 
-export default select;
+export default find;
