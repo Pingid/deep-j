@@ -1,5 +1,4 @@
 import curry from './curry';
-import compose from './compose';
 
 import isObjectLike from './internal/isObjectLike';
 import map from './internal/map';

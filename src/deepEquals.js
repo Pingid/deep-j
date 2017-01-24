@@ -1,7 +1,8 @@
 import curry from './curry';
 import objectType from './internal/objectType';
+import isObjectLike from './internal/isObjectLike';
 
-const arrayEquals = (a, b) => {
+const arrayEquals = curry((a, b) => {
   let result = true;
   if (a.length !== b.length) return false;
   for (let i = 0; i < a.length; i++) {
@@ -10,9 +11,9 @@ const arrayEquals = (a, b) => {
     else if (a[i] !== b[i]) { result = false; }
   }
   return result;
-}
+});
 
-const objectEquals = (a, b) => {
+const objectEquals = curry((a, b) => {
   let result = true;
   if (Object.keys(a).length !== Object.keys(b).length) return false;
   for (let key in a) {
@@ -21,13 +22,17 @@ const objectEquals = (a, b) => {
     else if (b[key] !== a[key]) { result = false; }
   }
   return result;
-}
+});
 
 const deepEquals = (a, b) => {
-  if (typeof a !== 'object' && a === b) return true;
-  else if (a.constructor === Array && b.constructor === Array) return arrayEquals(a, b)
-  else if (a.constructor === Object && b.constructor === Object) return objectEquals(a, b)
-  return false;
+	if (isObjectLike(a) && isObjectLike(b)) {
+		return objectType(objectEquals(a), arrayEquals(a), b)
+	}
+	return a === b;
+  // if (typeof a !== 'object' && a === b) return true;
+  // else if (a.constructor === Array && b.constructor === Array) return arrayEquals(a, b)
+  // else if (a.constructor === Object && b.constructor === Object) return objectEquals(a, b)
+  // return false;
 }
 
 export default deepEquals;
