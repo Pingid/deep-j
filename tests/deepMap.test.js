@@ -1,5 +1,8 @@
 import { expect, should } from 'chai';
 import deepMap from '../src/deepMap'
+import map from '../src/internal/map'
+import select from '../src/internal/select'
+import deep from '../src/deep'
 
 const testData = [
   { one: null, two: '2', three: [{ four: '4', five: [{ six: '6' }] }] },
@@ -7,8 +10,15 @@ const testData = [
 ];
 
 describe('deepMap', () => {
+  const deepSelect = deep(select);
+  const s = select(x => x === 2, { one: 1, two: 2 });
+  const ds = deepSelect(x => x === 2, { one: 1, two: [{ one: 1, two: 2 }] })
+  console.log(s);
+  console.log(ds);
+
   it('deep map iterates every value in nest', () => {
     let actual = [];
+    // const deepMap = deep(map);
     const mapped = deepMap((value, key) => {
       actual.push(value);
       return value
@@ -25,18 +35,4 @@ describe('deepMap', () => {
     ];
     expect(actual).deep.equal(expected);
   });
-  describe('deepMapping over', () => {
-    [
-      { name: 'null', input: null },
-      { name: 'plainObject', input: {} },
-      { name: 'array', input: [] },
-      { name: 'string', input: '' },
-      { name: 'number', input: 0 },
-      { name: 'method', input: x => x }
-    ].forEach((input) => {
-      it(input.name + ' should return original ' + input.name, () => {
-        expect(deepMap((x) => x, input.input)).deep.equal(input.input)
-      })
-    })
-  })
 });

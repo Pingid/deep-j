@@ -1,6 +1,7 @@
 import curry from './curry';
 import compose from './compose';
 
+import isObjectLike from './internal/isObjectLike';
 import map from './internal/map';
 
 /*
@@ -8,11 +9,12 @@ import map from './internal/map';
   the json mapping over every value
 */
 
-// map :: (a -> )
+// map :: (a -> b -> c -> c)
 const deepMap = curry((func, json) => {
   return map((value, key) => {
-    if (typeof value === 'object') return deepMap(func, func(value, key));
-    return func(value, key)
+    const result = func(value, key);
+    if (isObjectLike(value)) return deepMap(func, result);
+    return result
   }, json)
 })
 

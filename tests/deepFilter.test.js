@@ -1,6 +1,7 @@
 import _ from 'ramda';
 import { expect, should } from 'chai';
 import deepFilter from '../src/deepFilter'
+import filter from '../src/internal/filter';
 
 const testData = [
   { one: '1', two: '2', three: [{ four: '4', five: [{ six: '6' }, { seven: '7' }] }, ] },
@@ -22,19 +23,21 @@ const data = {
 describe('deepFilter', () => {
   it('deepFilter should iterate over every value', () => {
     let actual = [];
-    const filtered = deepFilter((x) => { actual.push(x); return x !== "6"; }, testData[0]);
-    const filtered2 = deepFilter((x) => { actual.push(x); return !_.isEmpty(x); }, filtered);
-    const expected = [
-      { one: '1', two:'2', three:[ { four:'4', five:[ { six:'6' } ] } ] },
-      '1',
-      '2',
-      [ { four:'4', five:[ { six:'6' } ] } ],
-      { four:'4', five:[ { six:'6' } ] },
-      '4',
-      [{ six:'6' }],
-      { six:'6' },
-      '6',
-    ]
+    // const filtered = deepFilter((x) => { actual.push(x); return x !== "6"; }, testData[0]);
+    // const filtered2 = deepFilter((x) => { actual.push(x); return !_.isEmpty(x); }, filtered);
+    // const expected = [
+    //   { one: '1', two:'2', three:[ { four:'4', five:[ { six:'6' } ] } ] },
+    //   '1',
+    //   '2',
+    //   [ { four:'4', five:[ { six:'6' } ] } ],
+    //   { four:'4', five:[ { six:'6' } ] },
+    //   '4',
+    //   [{ six:'6' }],
+    //   { six:'6' },
+    //   '6',
+    // ]
+    // console.log(JSON.stringify(deepFilter(x => x.text !== 'Exercise', data), null, 2));
+    // console.log(filter(x => x.text !== 'Exercise', data.todoList));
     // console.log('filtered', filtered);
     // console.log(JSON.stringify(filtered2, null, 2));
     // expect(actual).deep.equal(expected);

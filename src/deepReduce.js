@@ -1,5 +1,6 @@
 import curry from './curry';
 import reduce from './internal/reduce';
+import isObjectLike from './internal/isObjectLike';
 
 /*
   Passes every value of JSON literal to the passed in filter function
@@ -8,8 +9,9 @@ import reduce from './internal/reduce';
 // deepReduce :: (j -> Bool) -> j -> j
 const deepReduce = curry((func, init, value) => {
   return reduce((a, b, c) => {
-  	if (typeof b === 'object') return func(a, deepReduce(func, init, b), c)
-  	return func(a,b, c)
+    const result = func(a,b, c);
+  	if (isObjectLike(b)) return func(a, deepReduce(func, init, b), c)
+  	return result
   }, init, value)
 });
 
