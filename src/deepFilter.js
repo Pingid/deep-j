@@ -9,11 +9,7 @@ import filter from './internal/filter';
   only keeping the values which the filter function returns true on
 */
 // deepFilter :: (a -> Boolean) -> b -> b
-const deepFilter = curry((f, json) => {
-  return deepMap(value => {
-    if (isObjectLike(value)) return filter(f, value);
-    return value;
-  }, filter(f, json))
-})
+const deepFilter = curry((f, json) =>
+  deepMap(value => isObjectLike(value) ? filter(f, value) : value, filter(f, json)));
 
 export default deepFilter;

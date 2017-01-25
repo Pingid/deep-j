@@ -1,21 +1,14 @@
 import curry from '../curry';
 import objectType from './objectType';
-import reduce from './reduce'
 
 const objectMap = curry((f, o) => {
-  let newObj = {};
-  for (let key in o) { newObj[key] = f(o[key], key, o) }
+  const newObj = {};
+  Object.keys(o).forEach((key) => { newObj[key] = f(o[key], key, o); });
   return newObj;
 });
 
-const arrayMap = curry((f, a) => {
-  let newArr = [];
-  for (let i = 0; i < a.length; i++) { newArr[i] = f(a[i], i, a); }
-  return newArr;
-});
+const arrayMap = curry((f, a) => a.map((x, i) => f(x, i, a)));
 
-const map = curry((func, object) => {
-  return objectType(objectMap(func), arrayMap(func), object);
-});
+const map = curry((func, object) => objectType(objectMap(func), arrayMap(func), object));
 
 export default map;

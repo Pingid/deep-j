@@ -9,12 +9,11 @@ import map from './internal/map';
 */
 
 // map :: (a -> b -> c -> c)
-const deepMap = curry((func, json) => {
-  return map((value, key) => {
+const deepMap = curry((func, json) =>
+  map((value, key) => {
     const result = func(value, key);
     if (isObjectLike(value)) return deepMap(func, result);
-    return result
-  }, json)
-})
+    return result;
+  }, json));
 
 export default deepMap;

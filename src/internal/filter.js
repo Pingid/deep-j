@@ -1,28 +1,16 @@
 import curry from '../curry';
 import objectType from './objectType';
 
-const objectFilter = curry((func, object) => {
-  let newObj = {};
-  for (let key in object) {
-    if (func(object[key], key, object)) {
-      newObj = Object.assign({}, newObj, { [key]: object[key] })
-    }
-  }
+const objectFilter = curry((f, o) => {
+  const newObj = {};
+  Object.keys(o).forEach((key) => {
+    if (f(o[key], key, o)) { newObj[key] = o[key]; }
+  });
   return newObj;
 });
 
-const arrayFilter = curry((func, array) => {
-  let newArr = [];
-  for (let index = 0; index < array.length; index++) {
-    if (func(array[index], index, array)) {
-      newArr = [].concat(newArr, [array[index]]);
-    }
-  }
-  return newArr;
-});
+const arrayFilter = curry((f, a) => a.filter((x, i) => f(x, i, a)));
 
-const filter = curry((func, object) => {
-  return objectType(objectFilter(func), arrayFilter(func), object);
-})
+const filter = curry((f, o) => objectType(objectFilter(f), arrayFilter(f), o));
 
 export default filter;

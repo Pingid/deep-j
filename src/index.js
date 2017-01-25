@@ -5,18 +5,11 @@ import deepFilter from './deepFilter';
 import deepEquals from './deepEquals';
 import deepFind from './deepFind';
 
-export compose from './compose';
-export curry from './curry';
-export deepMap from './deepMap';
-export deepFilter from './deepFilter';
-export deepEquals from './deepEquals';
-export deepFind from './deepFind';
-
-export default {
+export {
   compose,
   curry,
   deepMap,
   deepFilter,
   deepEquals,
-	deepFind,
-}
+  deepFind,
+};

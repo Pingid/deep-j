@@ -3,6 +3,6 @@
   value which is passed to each function from right to left
 */
 // compose :: (f) -> f
-const compose = (...args) => (item) => args.reverse().reduce((a, b) => b(a), item);
+const compose = (...args) => item => args.reverse().reduce((a, b) => b(a), item);
 
 export default compose;
